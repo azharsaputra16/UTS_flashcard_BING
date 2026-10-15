@@ -1,0 +1,968 @@
+
+/* Mengatur ukuran elemen agar lebih mudah diatur */
+* {
+    box-sizing: border-box;
+}
+
+/* Warna utama yang dipakai di seluruh halaman */
+:root {
+    --bg: #f5f5f7;
+    --surface: #fff;
+    --ink: #202124;
+    --muted: #85878d;
+    --line: #e9e9ee;
+    --purple: #7568d8;
+    --purple-soft: #f0edff;
+    --green: #27845d;
+    --green-soft: #e9f6ef;
+    --red: #b45b61;
+    --shadow: 0 12px 35px rgba(32, 33, 36, .045);
+}
+
+/* Mengatur tampilan dasar halaman */
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Menyamakan font tombol dan kolom input */
+button,
+input,
+select {
+    font: inherit;
+}
+
+/* Membuat tombol bisa diklik */
+button {
+    cursor: pointer;
+}
+
+/* Mengatur bagian header atas */
+.topbar {
+    height: 66px;
+    padding: 0 max(20px, calc((100% - 1000px)/2));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ffffffdf;
+    border-bottom: 1px solid var(--line);
+}
+
+/* Mengatur logo Wordly */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 750;
+    letter-spacing: -1px;
+}
+
+/* Membuat kotak logo dan logo footer */
+.brand-icon,
+.footer-logo {
+    display: grid;
+    place-items: center;
+    width: 31px;
+    height: 31px;
+    border-radius: 10px;
+    color: white;
+    background: var(--purple);
+    font-weight: 800;
+}
+
+/* Mengatur tampilan nama pengguna */
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #555;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Membuat lingkaran inisial pengguna */
+.profile-dot {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: #6256bd;
+    background: var(--purple-soft);
+}
+
+/* Mengatur lebar utama halaman */
+.app {
+    width: min(100% - 36px, 960px);
+    margin: auto;
+}
+
+/* Mengatur jarak bagian pembuka */
+.welcome {
+    padding: 40px 0 24px;
+}
+
+/* Mengatur teks kecil di atas judul */
+.eyebrow {
+    margin: 0 0 8px;
+    color: var(--purple);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+}
+
+/* Mengatur judul utama */
+h1 {
+    margin: 0;
+    font-size: clamp(32px, 5vw, 47px);
+    line-height: 1.08;
+    letter-spacing: -2px;
+}
+
+/* Memberi warna pada bagian judul */
+h1 span {
+    color: var(--purple);
+}
+
+/* Mengatur teks penjelasan halaman */
+.welcome-copy {
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* Menyusun statistik dalam beberapa kolom */
+.summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+/* Membuat kartu statistik dan bagian konten */
+.summary-card,
+.learn-section,
+.word-list-section,
+.add-section {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: white;
+    box-shadow: var(--shadow);
+}
+
+/* Mengatur isi kartu statistik */
+.summary-card {
+    min-height: 100px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Mengatur ikon statistik */
+.summary-icon {
+    display: grid;
+    place-items: center;
+    width: 27px;
+    height: 27px;
+    margin-bottom: 6px;
+    border-radius: 9px;
+    font-weight: 800;
+}
+
+/* Warna ikon ungu */
+.lavender {
+    color: var(--purple);
+    background: var(--purple-soft);
+}
+
+/* Warna ikon hijau */
+.mint {
+    color: var(--green);
+    background: var(--green-soft);
+}
+
+/* Mengatur teks keterangan statistik */
+.summary-label {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+/* Mengatur angka statistik */
+.summary-card > strong {
+    font-size: 24px;
+}
+
+/* Menempatkan isi progres di tengah */
+.progress-card {
+    justify-content: center;
+}
+
+/* Mengatur judul dan persentase progres */
+.progress-top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+/* Mengatur angka persentase */
+.progress-top strong {
+    font-size: 21px;
+}
+
+/* Membuat garis dasar progres */
+.progress-track {
+    height: 7px;
+    margin: 13px 0 8px;
+    border-radius: 20px;
+    background: #eeedf4;
+    overflow: hidden;
+}
+
+/* Mengatur warna dan animasi progres */
+.progress-fill {
+    height: 100%;
+    width: 0;
+    background: var(--purple);
+    border-radius: inherit;
+    transition: width .3s;
+}
+
+/* Mengatur teks di bawah progres */
+.progress-caption {
+    font-size: 10px;
+    color: var(--muted);
+}
+
+/* Mengatur jarak dalam bagian belajar dan daftar kata */
+.learn-section,
+.word-list-section {
+    padding: 23px;
+}
+
+/* Mengatur judul bagian dan tombol di sebelahnya */
+.section-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Mengatur judul bagian */
+h2 {
+    margin: 0;
+    font-size: 21px;
+    letter-spacing: -.7px;
+}
+
+/* Mengatur pilihan kategori */
+.category-select select {
+    max-width: 145px;
+    padding: 9px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    background: white;
+    color: #555;
+    font-size: 10px;
+}
+
+/* Menyembunyikan label tanpa menghapus aksesibilitasnya */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+
+/* Mengatur kategori dan nomor kartu */
+.study-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 24px 0 10px;
+}
+
+/* Membuat label kategori berbentuk kapsul */
+.pill {
+    padding: 6px 9px;
+    border-radius: 20px;
+    color: var(--purple);
+    background: var(--purple-soft);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .7px;
+}
+
+/* Mengatur nomor kartu dan jumlah kata */
+.card-number,
+.word-count {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* Menyiapkan efek 3D saat kartu dibalik */
+.card-stage {
+    perspective: 1200px;
+}
+
+/* Mengatur ukuran dan animasi flashcard */
+.flashcard {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 295px;
+    padding: 0;
+    border: 0;
+    border-radius: 17px;
+    background: transparent;
+    text-align: center;
+    transform-style: preserve-3d;
+    transition: transform .58s cubic-bezier(.2, .7, .2, 1);
+}
+
+/* Membalik kartu dengan animasi */
+.flashcard.is-flipped {
+    transform: rotateY(180deg);
+}
+
+/* Mengatur tampilan depan dan belakang kartu */
+.card-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    border: 1px solid #e9e6fa;
+    border-radius: 17px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+}
+
+/* Memberi warna pada depan kartu */
+.front-face {
+    background: radial-gradient(circle at 50% 0%, #f5f2ff, #faf9ff 55%, #f7f7fc);
+}
+
+/* Memberi warna pada belakang kartu */
+.back-face {
+    background: radial-gradient(circle at 50% 0%, #effaf3, #f8fcf9 65%, #f4faf6);
+    border-color: #dfeee4;
+    transform: rotateY(180deg);
+}
+
+/* Mengatur tulisan kecil pada kartu */
+.face-label {
+    color: #958bdc;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+/* Mengatur ukuran kata pada flashcard */
+.word {
+    margin: 17px 0 6px;
+    color: #282638;
+    font-size: clamp(34px, 6vw, 49px);
+    line-height: 1.12;
+    font-weight: 750;
+    letter-spacing: -1.5px;
+    overflow-wrap: anywhere;
+}
+
+/* Mengatur tulisan cara pengucapan */
+.pronunciation {
+    color: #9995ad;
+    font-size: 13px;
+}
+
+/* Mengatur petunjuk membalik kartu */
+.tap-hint {
+    margin-top: 28px;
+    color: #93909f;
+    font-size: 10px;
+}
+
+/* Mengatur warna jawaban bahasa Indonesia */
+.answer-word {
+    color: #26734e;
+    margin-top: 14px;
+}
+
+/* Mengatur contoh kalimat bahasa Inggris */
+.example {
+    margin-top: 17px;
+    color: #414b44;
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* Mengatur terjemahan contoh kalimat */
+.example-translation {
+    margin-top: 4px;
+    color: #858f87;
+    font-size: 11px;
+}
+
+/* Mengatur pertanyaan tentang hasil hafalan */
+.memory-question {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin: 22px 0 13px;
+    color: var(--muted);
+    font-size: 10px;
+    text-align: center;
+}
+
+/* Membuat garis di samping pertanyaan hafalan */
+.memory-question span {
+    height: 1px;
+    flex: 1;
+    background: var(--line);
+}
+
+/* Menyusun dua tombol status hafalan */
+.memory-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+/* Mengatur bentuk tombol hafalan */
+.memory-button {
+    min-height: 62px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 10px 14px;
+    border: 1px solid transparent;
+    border-radius: 13px;
+    text-align: left;
+    transition: transform .16s, box-shadow .16s;
+}
+
+/* Memberi efek saat tombol disentuh */
+.memory-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 18px #00000008;
+}
+
+/* Warna tombol belum ingat */
+.not-known {
+    color: #a34c54;
+    background: #fff8f8;
+    border-color: #f2e2e3;
+}
+
+/* Warna tombol sudah ingat */
+.known {
+    color: #287450;
+    background: #f3fbf6;
+    border-color: #dcefe3;
+}
+
+/* Mengatur kotak ikon pada tombol hafalan */
+.memory-symbol {
+    display: grid;
+    place-items: center;
+    flex: 0 0 31px;
+    height: 31px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* Warna ikon belum ingat */
+.not-known .memory-symbol {
+    background: #fbe9ea;
+}
+
+/* Warna ikon sudah ingat */
+.known .memory-symbol {
+    background: #e2f4e9;
+}
+
+/* Memisahkan judul dan keterangan tombol */
+.memory-button strong,
+.memory-button small {
+    display: block;
+}
+
+/* Mengatur judul tombol hafalan */
+.memory-button strong {
+    font-size: 11px;
+}
+
+/* Mengatur keterangan tombol hafalan */
+.memory-button small {
+    margin-top: 3px;
+    color: #98969a;
+    font-size: 9px;
+}
+
+/* Mengatur posisi tombol navigasi kartu */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+/* Mengatur bentuk tombol navigasi */
+.nav-button {
+    padding: 10px 11px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    color: #65656d;
+    background: white;
+    font-size: 10px;
+}
+
+/* Memberi warna khusus pada tombol acak */
+.shuffle-button {
+    color: var(--purple);
+    background: #faf9ff;
+    border-color: #ece9ff;
+}
+
+/* Memberi jarak di atas daftar kosakata */
+.word-list-section {
+    margin-top: 17px;
+}
+
+/* Mengatur kolom pencarian */
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 17px 0 12px;
+    padding: 11px 13px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    color: #8a8b91;
+    background: #fbfbfc;
+}
+
+/* Mengatur ikon pencarian */
+.search-box > span {
+    font-size: 20px;
+}
+
+/* Mengatur kolom teks pencarian */
+.search-box input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-size: 12px;
+}
+
+/* Menyusun daftar kosakata menjadi dua kolom */
+.word-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+}
+
+/* Mengatur bentuk setiap item kosakata */
+.list-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    padding: 11px;
+    border: 1px solid #eeeef2;
+    border-radius: 10px;
+    text-align: left;
+    background: white;
+}
+
+/* Memberi tanda pada kata yang dipilih */
+.list-item:hover,
+.list-item.active {
+    background: #f8f7ff;
+    border-color: #e2defb;
+}
+
+/* Mengatur area teks pada daftar kata */
+.list-word {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Membatasi teks agar tidak keluar dari kartu daftar */
+.list-word strong,
+.list-word small {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Mengatur kata bahasa Inggris di daftar */
+.list-word strong {
+    font-size: 11px;
+    font-weight: 650;
+}
+
+/* Mengatur arti kata di daftar */
+.list-word small {
+    margin-top: 3px;
+    color: #96959c;
+    font-size: 10px;
+}
+
+/* Membuat titik status hafalan */
+.list-status {
+    width: 7px;
+    height: 7px;
+    flex: 0 0 7px;
+    border-radius: 50%;
+    background: #d7b05b;
+}
+
+/* Mengubah titik menjadi hijau jika sudah hafal */
+.list-status.known {
+    background: #42a477;
+}
+
+/* Mengatur pesan saat kata tidak ditemukan */
+.empty-list {
+    grid-column: 1/-1;
+    padding: 20px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* Mengatur keterangan di bawah daftar kata */
+.list-footnote {
+    margin: 12px 0 0;
+    color: #9a9ba1;
+    font-size: 10px;
+}
+
+/* Mengatur bagian tambah kosakata */
+.add-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 17px;
+    padding: 17px;
+}
+
+/* Menyusun ikon dan tulisan tambah kosakata */
+.add-section > div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Membuat kotak ikon tambah */
+.add-icon {
+    display: grid;
+    place-items: center;
+    width: 35px;
+    height: 35px;
+    border-radius: 11px;
+    color: var(--purple);
+    background: var(--purple-soft);
+    font-size: 21px;
+}
+
+/* Mengatur judul tambah kosakata */
+.add-section strong {
+    font-size: 12px;
+}
+
+/* Mengatur keterangan tambah kosakata */
+.add-section p {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+/* Mengatur tombol tambah kartu */
+.add-button {
+    padding: 11px 14px;
+    border: 0;
+    border-radius: 9px;
+    color: white;
+    background: var(--purple);
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* Mengatur footer halaman */
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 30px 0 35px;
+    color: #a1a1a8;
+    text-align: center;
+}
+
+/* Mengatur logo kecil di footer */
+.footer-logo {
+    width: 27px;
+    height: 27px;
+    border-radius: 9px;
+    font-size: 16px;
+}
+
+/* Mengatur teks nama aplikasi di footer */
+footer p {
+    margin: 0;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 1.7px;
+}
+
+/* Mengatur tulisan kecil di footer */
+footer small {
+    font-size: 10px;
+}
+
+/* Mengatur tampilan jendela tambah kosakata */
+.add-dialog {
+    width: min(430px, calc(100% - 28px));
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 17px;
+    box-shadow: 0 24px 90px #20212425;
+}
+
+/* Membuat latar belakang dialog lebih lembut */
+.add-dialog::backdrop {
+    background: #24242b55;
+    backdrop-filter: blur(5px);
+}
+
+/* Mengatur judul dan tombol tutup dialog */
+.dialog-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+/* Mengatur ukuran judul dialog */
+.dialog-heading h2 {
+    font-size: 22px;
+}
+
+/* Membuat tombol tutup dialog */
+.close-dialog {
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: 50%;
+    background: #f0f0f4;
+    font-size: 20px;
+}
+
+/* Mengatur label pada form */
+.add-dialog label {
+    display: block;
+    margin: 13px 0 6px;
+    color: #53535a;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* Mengatur kolom input dan kategori */
+.add-dialog input,
+.add-dialog select {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    outline-color: var(--purple);
+    background: white;
+    font-size: 12px;
+}
+
+/* Mengatur tombol di bagian bawah form */
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+/* Bentuk dasar tombol batal dan simpan */
+.cancel-button,
+.save-button {
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* Warna tombol batal */
+.cancel-button {
+    color: #555;
+    background: white;
+}
+
+/* Warna tombol simpan */
+.save-button {
+    color: white;
+    background: var(--purple);
+    border-color: var(--purple);
+}
+
+/* Menyesuaikan tampilan untuk layar HP */
+@media (max-width: 640px) {
+    .topbar {
+        height: 60px;
+        padding: 0 17px;
+    }
+
+    .app {
+        width: calc(100% - 26px);
+    }
+
+    .welcome {
+        padding: 30px 2px 20px;
+    }
+
+    .welcome-copy {
+        max-width: 290px;
+        line-height: 1.6;
+    }
+
+    /* Statistik menjadi dua kolom */
+    .summary-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+        margin-bottom: 15px;
+    }
+
+    .summary-card {
+        min-height: 95px;
+        padding: 12px;
+        border-radius: 13px;
+    }
+
+    /* Progres memenuhi satu baris */
+    .progress-card {
+        grid-column: 1/-1;
+        min-height: 82px;
+    }
+
+    .learn-section,
+    .word-list-section {
+        padding: 16px 13px;
+        border-radius: 15px;
+    }
+
+    .section-top {
+        align-items: flex-start;
+    }
+
+    h2 {
+        font-size: 19px;
+    }
+
+    .category-select select {
+        max-width: 125px;
+        padding: 8px 5px;
+        font-size: 9px;
+    }
+
+    .study-meta {
+        margin-top: 20px;
+    }
+
+    /* Mengurangi tinggi flashcard di HP */
+    .flashcard {
+        height: 260px;
+    }
+
+    .card-face {
+        padding: 18px 13px;
+    }
+
+    .word {
+        font-size: clamp(33px, 10vw, 43px);
+    }
+
+    .memory-actions {
+        gap: 8px;
+    }
+
+    .memory-button {
+        min-height: 62px;
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .memory-symbol {
+        flex-basis: 28px;
+        height: 28px;
+    }
+
+    .memory-button strong {
+        font-size: 10px;
+    }
+
+    .memory-button small {
+        font-size: 8px;
+    }
+
+    .navigation {
+        gap: 5px;
+    }
+
+    .nav-button {
+        flex: 1;
+        padding: 10px 4px;
+        font-size: 9px;
+    }
+
+    /* Daftar kata menjadi satu kolom di HP */
+    .word-list {
+        grid-template-columns: 1fr;
+    }
+
+    .list-item {
+        padding: 10px;
+    }
+
+    .add-section {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    .add-button {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+/* Mengurangi animasi jika pengguna memilih gerakan minimal */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: .01ms !important;
+    }
+}
