@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f5f5f7">
+
+    <title>Wordly — English Flashcards</title>
+
+    <!-- koneksi ke CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Header dan profil pengguna -->
+    <header class="topbar">
+        <a class="brand" href="#">
+            <span class="brand-icon">w.</span>
+            wordly
+        </a>
+
+        <div class="profile">
+            <span class="profile-dot">A</span>
+            <span>M Ashar Spt</span>
+        </div>
+    </header>
+
+    <main class="app">
+
+        <!-- Judul dan pengenalan aplikasi -->
+        <section class="welcome">
+            <p class="eyebrow">ENGLISH, ONE CARD AT A TIME</p>
+
+            <h1>
+                Small words.<br>
+                <span>Big progress.</span>
+            </h1>
+
+            <p class="welcome-copy">
+                Belajar bahasa Inggris sedikit demi sedikit, setiap hari.
+            </p>
+        </section>
+
+        <!-- Statistik jumlah dan progres hafalan -->
+        <section class="summary-grid">
+            <article class="summary-card">
+                <span class="summary-icon lavender">▤</span>
+                <span class="summary-label">Total kata</span>
+                <strong id="total-count">24</strong>
+            </article>
+
+            <article class="summary-card">
+                <span class="summary-icon mint">✓</span>
+                <span class="summary-label">Sudah ingat</span>
+                <strong id="known-count">0</strong>
+            </article>
+
+            <article class="summary-card progress-card">
+                <div class="progress-top">
+                    <span class="summary-label">Progres belajar</span>
+                    <strong id="progress-percent">0%</strong>
+                </div>
+
+                <!-- Garis progres hafalan -->
+                <div class="progress-track">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+
+                <span class="progress-caption" id="progress-caption">
+                    Mulai dari satu kata dulu
+                </span>
+            </article>
+        </section>
+
+        <!-- Bagian utama untuk belajar flashcard -->
+        <section class="learn-section">
+            <div class="section-top">
+                <div>
+                    <p class="eyebrow">PRATIK HARIAN MU</p>
+                    <h2>Latihan kosakata</h2>
+                </div>
+
+                <!-- Pilihan kategori kosakata -->
+                <label class="category-select">
+                    <span class="sr-only">Pilih kategori</span>
+
+                    <select id="category-filter">
+                        <option value="Semua">Semua kategori</option>
+                        <option value="Benda">Kata benda</option>
+                        <option value="Kerja">Kata kerja</option>
+                        <option value="Sifat">Kata sifat</option>
+                        <option value="Sehari-hari">Sehari-hari</option>
+                    </select>
+                </label>
+            </div>
+
+            <!-- Kategori dan nomor kartu -->
+            <div class="study-meta">
+                <span class="pill" id="category-pill">KATA BENDA</span>
+                <span class="card-number" id="card-counter">01 / 24</span>
+            </div>
+
+            <!-- Kartu depan dan belakang -->
+            <div class="card-stage">
+                <button
+                    class="flashcard"
+                    id="flashcard"
+                    type="button"
+                    aria-label="Ketuk untuk membalik kartu"
+                >
+                    <!-- Bagian depan kartu -->
+                    <span class="card-face front-face">
+                        <span class="face-label">ENGLISH WORD</span>
+                        <span class="word" id="card-question">Book</span>
+
+                        <span class="pronunciation" id="card-pronunciation">
+                            /bʊk/
+                        </span>
+
+                        <span class="tap-hint">
+                            ↻ Ketuk kartu untuk melihat arti
+                        </span>
+                    </span>
+
+                    <!-- Bagian belakang kartu -->
+                    <span class="card-face back-face">
+                        <span class="face-label">
+                            ARTI DALAM BAHASA INDONESIA
+                        </span>
+
+                        <span class="word answer-word" id="card-answer">
+                            Buku
+                        </span>
+
+                        <span class="example" id="card-example">
+                            This is my book.
+                        </span>
+
+                        <span class="example-translation" id="card-translation">
+                            Ini buku saya.
+                        </span>
+
+                        <span class="tap-hint">
+                            Ketuk lagi untuk kembali
+                        </span>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Pertanyaan untuk mengecek hafalan -->
+            <div class="memory-question">
+                <span></span>
+                APAKAH KAMU SUDAH MENGINGATNYA?
+                <span></span>
+            </div>
+
+            <!-- Tombol status hafalan -->
+            <div class="memory-actions">
+                <button
+                    class="memory-button not-known"
+                    id="mark-review"
+                    type="button"
+                >
+                    <span class="memory-symbol">↻</span>
+
+                    <span>
+                        <strong>Belum ingat</strong>
+                        <small>Ulangi lagi nanti</small>
+                    </span>
+                </button>
+
+                <button
+                    class="memory-button known"
+                    id="mark-known"
+                    type="button"
+                >
+                    <span class="memory-symbol">✓</span>
+
+                    <span>
+                        <strong>Sudah ingat</strong>
+                        <small>Lanjut ke kata berikutnya</small>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Tombol navigasi kartu -->
+            <div class="navigation">
+                <button class="nav-button" id="prev-card" type="button">
+                    ← Sebelumnya
+                </button>
+
+                <button
+                    class="nav-button shuffle-button"
+                    id="shuffle-card"
+                    type="button"
+                >
+                    ⤨ Acak kata
+                </button>
+
+                <button class="nav-button" id="next-card" type="button">
+                    Berikutnya →
+                </button>
+            </div>
+        </section>
+
+        <!-- Daftar semua kosakata -->
+        <section class="word-list-section">
+            <div class="section-top">
+                <div>
+                    <p class="eyebrow">KEEP IT GOING</p>
+                    <h2>Daftar kosakata</h2>
+                </div>
+
+                <span class="word-count" id="list-count">24 kata</span>
+            </div>
+
+            <!-- Kolom pencarian kata -->
+            <label class="search-box">
+                <span>⌕</span>
+
+                <input
+                    id="search-input"
+                    type="search"
+                    placeholder="Cari kata bahasa Inggris..."
+                    aria-label="Cari kosakata"
+                >
+            </label>
+
+            <!-- Daftar kata diisi melalui JavaScript -->
+            <div class="word-list" id="card-list"></div>
+
+            <p class="list-footnote">
+                YANG HIJAU TITIKNYA BERARTI KAMU MENGINGATNYA.
+            </p>
+        </section>
+
+        <!-- Tombol untuk menambah kosakata baru -->
+        <section class="add-section">
+            <div>
+                <span class="add-icon">＋</span>
+
+                <div>
+                    <strong>Tambah kosakata sendiri</strong>
+                    <p>Buat kartu dari kata yang sedang kamu pelajari.</p>
+                </div>
+            </div>
+
+            <button class="add-button" id="add-card-open" type="button">
+                Tambah kartu ↗
+            </button>
+        </section>
+
+        <!-- Bagian penutup halaman -->
+        <footer>
+            <span class="footer-logo">w.</span>
+            <p>WORDLY · ENGLISH FLASHCARDS</p>
+            <small>Made for learning, one word at a time.</small>
+        </footer>
+    </main>
+
+    <!-- Form untuk menambahkan kata baru -->
+    <dialog id="add-card-dialog" class="add-dialog">
+        <form id="add-card-form">
+            <div class="dialog-heading">
+                <div>
+                    <p class="eyebrow">NEW VOCABULARY</p>
+                    <h2>Tambah kosakata</h2>
+                </div>
+
+                <button
+                    class="close-dialog"
+                    type="button"
+                    id="close-dialog"
+                >
+                    ×
+                </button>
+            </div>
+
+            <label for="new-question">Kata bahasa Inggris</label>
+            <input
+                id="new-question"
+                required
+                maxlength="80"
+                placeholder="Contoh: Beautiful"
+            >
+
+            <label for="new-answer">Arti bahasa Indonesia</label>
+            <input
+                id="new-answer"
+                required
+                maxlength="100"
+                placeholder="Contoh: Cantik / indah"
+            >
+
+            <label for="new-category">Kategori</label>
+            <select id="new-category">
+                <option value="Benda">Kata benda</option>
+                <option value="Kerja">Kata kerja</option>
+                <option value="Sifat">Kata sifat</option>
+                <option value="Sehari-hari">Sehari-hari</option>
+            </select>
+
+            <label for="new-example">Contoh kalimat (opsional)</label>
+            <input
+                id="new-example"
+                maxlength="150"
+                placeholder="The flower is beautiful."
+            >
+
+            <div class="dialog-actions">
+                <button
+                    class="cancel-button"
+                    type="button"
+                    id="cancel-add"
+                >
+                    Batal
+                </button>
+
+                <button class="save-button" type="submit">
+                    Simpan kata
+                </button>
+            </div>
+        </form>
+    </dialog>
+
+    <!-- Menghubungkan file JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
