@@ -966,3 +966,526 @@ footer small {
         transition-duration: .01ms !important;
     }
 }
+
+
+/* =========================================
+   WORDLY UPDATE - LOGIN, MENU, REFERENSI
+   Tambahkan di bagian paling bawah style.css
+   ========================================= */
+
+/* Elemen yang disembunyikan */
+.hidden {
+    display: none !important;
+}
+
+/* Emoji pada flashcard */
+.card-emoji {
+    display: block;
+    margin-top: 18px;
+    font-size: 48px;
+    line-height: 1.2;
+}
+
+/* Tombol ikon pada header */
+.icon-button {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: var(--ink);
+    background: var(--surface);
+    font-size: 16px;
+    transition: transform .2s, background .2s;
+}
+
+.icon-button:hover {
+    transform: translateY(-2px);
+}
+
+/* Menu navigasi */
+.main-menu {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+}
+
+.menu-button {
+    padding: 10px 16px;
+    border: 1px solid transparent;
+    border-radius: 11px;
+    color: var(--muted);
+    background: transparent;
+    font-size: 12px;
+    font-weight: 650;
+    transition: background .2s, color .2s;
+}
+
+.menu-button:hover {
+    color: var(--purple);
+    background: var(--purple-soft);
+}
+
+.menu-button.active {
+    color: var(--purple);
+    border-color: #e6e1ff;
+    background: var(--purple-soft);
+}
+
+/* Konten halaman menu */
+.content-page {
+    animation: wordly-appear .25s ease;
+}
+
+@keyframes wordly-appear {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Halaman login dan daftar */
+.auth-page {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    padding: 24px 16px;
+    background:
+        radial-gradient(circle at top left, #eeeaff 0, transparent 40%),
+        radial-gradient(circle at bottom right, #e8f7ee 0, transparent 38%),
+        var(--bg);
+}
+
+.auth-card {
+    width: min(100%, 420px);
+    padding: 30px;
+    border: 1px solid var(--line);
+    border-radius: 23px;
+    background: var(--surface);
+    box-shadow: 0 24px 70px rgba(32, 33, 36, .09);
+}
+
+.auth-card > .brand {
+    margin-bottom: 30px;
+}
+
+.auth-card h1 {
+    font-size: clamp(27px, 6vw, 35px);
+    letter-spacing: -1.3px;
+}
+
+.auth-card > p:not(.eyebrow) {
+    margin: 12px 0 22px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* Pilihan masuk dan daftar */
+.auth-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px;
+    margin: 20px 0;
+    padding: 5px;
+    border-radius: 12px;
+    background: var(--bg);
+}
+
+.auth-tabs button {
+    padding: 11px;
+    border: 0;
+    border-radius: 9px;
+    color: var(--muted);
+    background: transparent;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.auth-tabs button.active {
+    color: var(--purple);
+    background: var(--surface);
+    box-shadow: 0 2px 7px #0000000b;
+}
+
+/* Form login dan daftar */
+#auth-form label {
+    display: block;
+    margin: 14px 0 7px;
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+#auth-form input {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    outline: none;
+    color: var(--ink);
+    background: var(--surface);
+    font-size: 13px;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+#auth-form input:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px var(--purple-soft);
+}
+
+#auth-submit {
+    width: 100%;
+    margin-top: 14px;
+    padding: 13px;
+    font-size: 12px;
+}
+
+#auth-message,
+#add-card-message {
+    margin: 10px 0;
+    color: var(--red);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Tombol saat proses */
+button:disabled {
+    cursor: not-allowed;
+    opacity: .6;
+}
+
+/* Kartu daftar kata dengan emoji */
+.list-emoji {
+    display: grid;
+    place-items: center;
+    flex: 0 0 37px;
+    width: 37px;
+    height: 37px;
+    border-radius: 11px;
+    background: var(--purple-soft);
+    font-size: 21px;
+}
+
+/* Keterangan kategori kata */
+.list-category {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 3px 6px;
+    border-radius: 5px;
+    color: var(--purple);
+    background: var(--purple-soft);
+    font-size: 9px;
+}
+
+/* Tombol untuk memasukkan referensi */
+.reference-action {
+    display: block;
+    width: 100%;
+    flex: 0 0 100%;
+    margin-top: 8px;
+    padding: 8px 10px;
+    border: 1px solid #e3defe;
+    border-radius: 8px;
+    color: var(--purple);
+    background: var(--purple-soft);
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.reference-action:hover {
+    filter: brightness(.97);
+}
+
+.reference-card,
+.mine-word-item {
+    flex-wrap: wrap;
+}
+
+.reference-card {
+    cursor: pointer;
+}
+
+.reference-card:focus-visible {
+    outline: 2px solid var(--purple);
+    outline-offset: 2px;
+}
+
+.word-delete-button {
+    flex: 0 0 100%;
+    margin-top: 8px;
+    padding: 8px 10px;
+    border: 1px solid #f2d7d8;
+    border-radius: 8px;
+    color: var(--red);
+    background: transparent;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.word-delete-button:hover {
+    background: #fff4f4;
+}
+
+/* Identitas pembuat kata */
+.word-author {
+    display: block;
+    flex: 0 0 100%;
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.word-share-note {
+    margin: 5px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* Tombol menu di halaman profil */
+#profile-theme-button,
+#profile-logout-button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    text-align: left;
+    font-size: 12px;
+}
+
+/* Efek fokus untuk akses keyboard */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--purple);
+    outline-offset: 3px;
+}
+
+/* =========================================
+   DARK MODE
+   Aktif ketika body memiliki class dark-mode
+   ========================================= */
+
+body.dark-mode {
+    --bg: #15151c;
+    --surface: #20202a;
+    --ink: #f1f0f7;
+    --muted: #aaa8b8;
+    --line: #343442;
+    --purple: #a79aff;
+    --purple-soft: #302b49;
+    --green: #70d5a0;
+    --green-soft: #243d32;
+    --red: #ff9b9f;
+    --shadow: 0 12px 35px rgba(0, 0, 0, .16);
+    color: var(--ink);
+    background: var(--bg);
+}
+
+body.dark-mode .topbar {
+    background: #20202a;
+    border-color: var(--line);
+}
+
+body.dark-mode .profile {
+    color: var(--ink);
+}
+
+body.dark-mode .main-menu {
+    background: var(--bg);
+    border-color: var(--line);
+}
+
+body.dark-mode .menu-button.active {
+    border-color: #484064;
+}
+
+body.dark-mode .summary-card,
+body.dark-mode .learn-section,
+body.dark-mode .word-list-section,
+body.dark-mode .add-section,
+body.dark-mode .list-item,
+body.dark-mode .auth-card {
+    background: var(--surface);
+    border-color: var(--line);
+}
+
+body.dark-mode .category-select select,
+body.dark-mode .nav-button,
+body.dark-mode .cancel-button {
+    color: var(--ink);
+    background: var(--surface);
+    border-color: var(--line);
+}
+
+body.dark-mode .search-box {
+    background: #191922;
+    border-color: var(--line);
+}
+
+body.dark-mode .search-box input {
+    color: var(--ink);
+}
+
+body.dark-mode .list-item:hover,
+body.dark-mode .list-item.active {
+    background: #2c2940;
+    border-color: #494166;
+}
+
+body.dark-mode .list-word strong,
+body.dark-mode .add-section strong,
+body.dark-mode h2 {
+    color: var(--ink);
+}
+
+body.dark-mode .front-face {
+    background: radial-gradient(circle at top, #302b49, #22212e 75%);
+    border-color: #494166;
+}
+
+body.dark-mode .back-face {
+    background: radial-gradient(circle at top, #243d32, #202b27 75%);
+    border-color: #355343;
+}
+
+body.dark-mode .word {
+    color: #f1efff;
+}
+
+body.dark-mode .answer-word {
+    color: #8de0b0;
+}
+
+body.dark-mode .example {
+    color: #e0e7e2;
+}
+
+body.dark-mode .example-translation {
+    color: #a6b3aa;
+}
+
+body.dark-mode .not-known {
+    color: #ffb4b8;
+    background: #352528;
+    border-color: #513438;
+}
+
+body.dark-mode .known {
+    color: #8de0b0;
+    background: #22382d;
+    border-color: #355343;
+}
+
+body.dark-mode .auth-page {
+    background:
+        radial-gradient(circle at top left, #302b49 0, transparent 40%),
+        radial-gradient(circle at bottom right, #243d32 0, transparent 38%),
+        var(--bg);
+}
+
+body.dark-mode #auth-form input,
+body.dark-mode .add-dialog input,
+body.dark-mode .add-dialog select {
+    color: var(--ink);
+    background: var(--surface);
+    border-color: var(--line);
+}
+
+body.dark-mode .add-dialog {
+    color: var(--ink);
+    background: var(--surface);
+    border-color: var(--line);
+}
+
+body.dark-mode .add-dialog label {
+    color: var(--ink);
+}
+
+body.dark-mode .close-dialog {
+    color: var(--ink);
+    background: #343442;
+}
+
+body.dark-mode .auth-tabs {
+    background: var(--bg);
+}
+
+body.dark-mode .auth-tabs button.active {
+    background: var(--surface);
+}
+
+body.dark-mode .list-emoji {
+    background: var(--purple-soft);
+}
+
+body.dark-mode .word-delete-button {
+    border-color: #513438;
+}
+
+body.dark-mode .word-delete-button:hover {
+    background: #352528;
+}
+
+/* =========================================
+   RESPONSIVE - HP DAN TABLET
+   ========================================= */
+
+@media (max-width: 640px) {
+    .main-menu {
+        justify-content: flex-start;
+        gap: 5px;
+        padding: 9px 12px;
+        overflow-x: auto;
+    }
+
+    .menu-button {
+        flex: 0 0 auto;
+        padding: 10px 12px;
+        font-size: 11px;
+    }
+
+    .profile {
+        gap: 6px;
+    }
+
+    #header-username {
+        max-width: 90px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .icon-button {
+        width: 31px;
+        height: 31px;
+    }
+
+    .auth-card {
+        padding: 23px 19px;
+        border-radius: 19px;
+    }
+
+    .card-emoji {
+        margin-top: 13px;
+        font-size: 41px;
+    }
+
+    .reference-action {
+        padding: 10px;
+    }
+}
