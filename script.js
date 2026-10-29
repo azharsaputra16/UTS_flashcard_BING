@@ -5,6 +5,7 @@
    Data pribadi disimpan per akun Firebase.
    ========================================== */
 
+/* Konfigurasi koneksi aplikasi ke Firebase Authentication dan Firestore. */
 const firebaseConfig = {
     apiKey: "AIzaSyDwfxTr3XKQwC-m1wfDjofptzvX95MEWy4",
     authDomain: "flashcard-b7510.firebaseapp.com",
@@ -66,6 +67,7 @@ const defaultCards = [
 
 /* ==========================================
    STATE APLIKASI
+   Menyimpan akun, data kosakata, progres, dan pilihan tampilan sementara.
    ========================================== */
 
 let currentUser = null;
@@ -84,8 +86,10 @@ let activePage = "learn-page";
 let authMode = "login";
 let loadingData = false;
 
+/* Mempermudah pemilihan elemen HTML berdasarkan nilai id. */
 const $ = id => document.getElementById(id);
 
+/* Menampilkan pesan status pada elemen yang sesuai, dengan warna sukses atau error. */
 function showMessage(id, message, isError = true) {
     const el = $(id);
     if (!el) return;
@@ -93,6 +97,7 @@ function showMessage(id, message, isError = true) {
     el.style.color = isError ? "var(--red)" : "var(--green)";
 }
 
+/* Mengamankan teks sebelum digunakan sebagai HTML agar karakter khusus tidak dibaca sebagai tag. */
 function escapeHTML(value) {
     return String(value ?? "").replace(/[&<>"']/g, char => ({
         "&": "&amp;",
@@ -103,11 +108,13 @@ function escapeHTML(value) {
     })[char]);
 }
 
+/* Mengambil koleksi data khusus milik pengguna yang sedang masuk. */
 function userCollection(name) {
     if (!currentUser) throw new Error("Silakan login terlebih dahulu.");
     return db.collection("users").doc(currentUser.uid).collection(name);
 }
 
+/* Mengambil status dan jadwal pengulangan kartu dari data progres pengguna. */
 function getProgress(card) {
     return progress[card.id] || {
         known: false,
@@ -117,6 +124,7 @@ function getProgress(card) {
     };
 }
 
+/* Menggabungkan kosakata bawaan dan kosakata pribadi beserta status belajarnya. */
 function mergedCards() {
     return [
         ...defaultCards.map(c => ({ ...c, ...getProgress(c), source: "default" })),
@@ -124,6 +132,7 @@ function mergedCards() {
     ];
 }
 
+/* Menyaring kartu berdasarkan kategori dan kata kunci pencarian. */
 function visibleCards() {
     return cards
         .map((card, index) => ({ card, index }))
@@ -141,6 +150,7 @@ function visibleCards() {
    Firebase Authentication memakai email/password.
    ========================================== */
 
+/* Mengganti tampilan formulir antara mode masuk dan pendaftaran. */
 function setAuthMode(mode) {
     authMode = mode;
 
@@ -161,6 +171,7 @@ function setAuthMode(mode) {
 $("show-login")?.addEventListener("click", () => setAuthMode("login"));
 $("show-register")?.addEventListener("click", () => setAuthMode("register"));
 
+/* Memvalidasi formulir lalu masuk atau membuat akun melalui Firebase Authentication. */
 $("auth-form")?.addEventListener("submit", async event => {
     event.preventDefault();
 
@@ -217,6 +228,7 @@ $("auth-form")?.addEventListener("submit", async event => {
    PEMUATAN DATA DARI FIRESTORE
    ========================================== */
 
+/* Menerbitkan kosakata lama milik pengguna yang belum memiliki salinan referensi publik. */
 async function publishLegacyMyWords(wordDocs) {
     const unpublished = wordDocs.filter(doc => {
         const word = doc.data();
@@ -241,6 +253,7 @@ async function publishLegacyMyWords(wordDocs) {
     return publishedIds;
 }
 
+/* Memuat kosakata, referensi, dan progres belajar untuk akun aktif. */
 async function loadUserData() {
     if (!currentUser) return;
 
@@ -290,6 +303,7 @@ async function loadUserData() {
     }
 }
 
+/* Menampilkan halaman yang sesuai saat status login Firebase berubah. */
 auth.onAuthStateChanged(async user => {
     currentUser = user;
 
@@ -329,6 +343,7 @@ auth.onAuthStateChanged(async user => {
    STATISTIK DAN FLASHCARD
    ========================================== */
 
+/* Memperbarui jumlah kosakata, jumlah yang diingat, dan persentase progres. */
 function renderStats() {
     cards = mergedCards();
 
@@ -353,6 +368,7 @@ function renderStats() {
     renderProfile();
 }
 
+/* Menampilkan kartu yang sedang dipelajari atau pesan saat hasil filter kosong. */
 function renderCard() {
     cards = mergedCards();
 
@@ -406,6 +422,7 @@ function renderCard() {
     renderList();
 }
 
+/* Membuat ulang daftar kartu agar pencarian dan pilihan kartu selalu sesuai. */
 function renderList() {
     const list = $("card-list");
     if (!list) return;
@@ -454,6 +471,7 @@ function renderList() {
     });
 }
 
+/* Berpindah ke kartu berikutnya/sebelumnya dan mengulang dari awal saat mencapai ujung. */
 function moveCard(direction) {
     const shown = visibleCards();
     if (!shown.length) return;
@@ -463,6 +481,7 @@ function moveCard(direction) {
     renderCard();
 }
 
+/* Membalik kartu dan menghubungkan tombol navigasi serta pengacakan kartu. */
 $("flashcard")?.addEventListener("click", () => {
     if (!visibleCards().length) return;
     isFlipped = !isFlipped;
@@ -496,6 +515,7 @@ $("shuffle-card")?.addEventListener("click", () => {
 $("mark-known")?.addEventListener("click", () => markCard(true));
 $("mark-review")?.addEventListener("click", () => markCard(false));
 
+/* Menyimpan status hafalan dan menentukan jeda pengulangan berikutnya. */
 async function markCard(known) {
     const shown = visibleCards();
     if (!shown.length || !currentUser) return;
@@ -535,6 +555,7 @@ async function markCard(known) {
 
 /* ==========================================
    PENCARIAN DAN FILTER KATEGORI
+   Memperbarui kartu yang ditampilkan setiap kali kata kunci atau kategori berubah.
    ========================================== */
 
 $("search-input")?.addEventListener("input", event => {
@@ -557,6 +578,7 @@ $("category-filter")?.addEventListener("change", event => {
 
 const dialog = $("add-card-dialog");
 
+/* Membuka formulir tambah kata dan membersihkan pesan lama. */
 function openAddWordDialog() {
     showMessage("add-card-message", "");
     if (dialog?.showModal) dialog.showModal();
@@ -569,6 +591,7 @@ $("reference-add-open")?.addEventListener("click", openAddWordDialog);
 $("close-dialog")?.addEventListener("click", () => dialog?.close());
 $("cancel-add")?.addEventListener("click", () => dialog?.close());
 
+/* Memvalidasi kosakata baru, lalu menyimpannya sebagai kata pribadi dan referensi publik. */
 $("add-card-form")?.addEventListener("submit", async event => {
     event.preventDefault();
     if (!currentUser) return;
@@ -658,6 +681,7 @@ $("add-card-form")?.addEventListener("submit", async event => {
    DAFTAR KOSAKATA PRIBADI
    ========================================== */
 
+/* Menampilkan kosakata buatan pengguna sesuai kata kunci pencarian. */
 function renderMyWords() {
     const list = $("mywords-list");
     if (!list) return;
@@ -690,6 +714,7 @@ function renderMyWords() {
     });
 }
 
+/* Membuat elemen daftar kosakata untuk daftar pribadi maupun referensi bersama. */
 function createWordItem(word, itemType = "") {
     const wrapper = document.createElement("article");
     wrapper.className = "list-item" + (itemType ? " " + itemType + "-word-item" : "");
@@ -745,6 +770,7 @@ function createWordItem(word, itemType = "") {
     return wrapper;
 }
 
+/* Menghapus kosakata pribadi dan progres terkait dari Firestore. */
 async function deleteMyWord(word, deleteButton) {
     if (
         !currentUser ||
@@ -796,6 +822,7 @@ $("myword-search")?.addEventListener("input", renderMyWords);
    Sumber: koleksi publicWords di Firestore.
    ========================================== */
 
+/* Mengikuti perubahan daftar referensi publik secara langsung dari Firestore. */
 function loadReferenceWords() {
     const list = $("reference-list");
     if (list) list.innerHTML = '<p class="empty-list">Memuat kosakata referensi...</p>';
@@ -818,6 +845,7 @@ function loadReferenceWords() {
     });
 }
 
+/* Menampilkan referensi publik dan menandai kata yang sudah ada di daftar pribadi. */
 function renderReferenceWords() {
     const list = $("reference-list");
     if (!list) return;
@@ -861,6 +889,7 @@ function renderReferenceWords() {
     });
 }
 
+/* Menyalin satu kosakata referensi ke daftar pribadi pengguna. */
 async function addReferenceToMyWords(word) {
     if (!currentUser) return;
 
@@ -912,6 +941,7 @@ $("reference-search")?.addEventListener("input", renderReferenceWords);
 
 /* ==========================================
    NAVIGASI MENU
+   Menampilkan halaman pilihan dan memuat data yang diperlukan untuk halaman tersebut.
    ========================================== */
 
 document.querySelectorAll("[data-page]").forEach(button => {
@@ -943,6 +973,7 @@ document.querySelectorAll("[data-page]").forEach(button => {
    PROFIL DAN LOGOUT
    ========================================== */
 
+/* Menyegarkan ringkasan progres yang ditampilkan pada halaman profil. */
 function renderProfile() {
     if (!currentUser) return;
 
@@ -956,6 +987,7 @@ function renderProfile() {
     if ($("profile-custom-count")) $("profile-custom-count").textContent = myWords.length;
 }
 
+/* Mengakhiri sesi pengguna melalui Firebase Authentication. */
 async function logout() {
     try {
         await auth.signOut();
@@ -969,8 +1001,10 @@ $("profile-logout-button")?.addEventListener("click", logout);
 
 /* ==========================================
    DARK MODE
+   Pilihan tema disimpan di browser agar tetap digunakan saat aplikasi dibuka kembali.
    ========================================== */
 
+/* Menerapkan tema terang/gelap dan menyimpan pilihan pengguna. */
 function setDarkMode(enabled) {
     document.body.classList.toggle("dark-mode", enabled);
 
@@ -982,6 +1016,7 @@ function setDarkMode(enabled) {
     localStorage.setItem("wordlyDarkMode", enabled ? "on" : "off");
 }
 
+/* Mengubah tema ke kondisi kebalikan dari tema yang sedang aktif. */
 function toggleDarkMode() {
     setDarkMode(!document.body.classList.contains("dark-mode"));
 }

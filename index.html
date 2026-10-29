@@ -1,16 +1,21 @@
 
+<!-- Menentukan bahwa dokumen ini menggunakan standar HTML5. -->
 <!DOCTYPE html>
+<!-- Elemen utama halaman dan bahasa Indonesia sebagai bahasa konten. -->
 <html lang="id">
 <head>
+    <!-- Pengaturan karakter, tampilan responsif, dan warna tema browser. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#f5f5f7">
 
+    <!-- Judul yang ditampilkan pada tab browser. -->
     <title>Wordly — English Flashcards</title>
 
+    <!-- Menghubungkan halaman dengan stylesheet untuk mengatur tampilan. -->
     <link rel="stylesheet" href="./style.css">
 
-    <!-- Firebase untuk autentikasi dan database -->
+    <!-- Memuat Firebase App, Authentication, dan Firestore untuk akun serta penyimpanan data. -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -18,9 +23,10 @@
 
 <body>
 
-    <!-- HALAMAN LOGIN DAN DAFTAR -->
+    <!-- Bagian autentikasi: menyediakan formulir untuk masuk atau membuat akun. -->
     <section id="auth-page" class="auth-page">
         <div class="auth-card">
+            <!-- Identitas merek Wordly pada kartu autentikasi. -->
             <a class="brand" href="#">
                 <span class="brand-icon">w.</span>
                 wordly
@@ -30,6 +36,7 @@
             <h1>Belajar kata, bangun kemampuan.</h1>
             <p>Masuk atau buat akun untuk menyimpan progres hafalanmu.</p>
 
+            <!-- Tombol untuk memilih formulir masuk atau pendaftaran. -->
             <div class="auth-tabs">
                 <button type="button" id="show-login" class="active">
                     Masuk
@@ -39,7 +46,9 @@
                 </button>
             </div>
 
+            <!-- Formulir email dan kata sandi yang diproses oleh script.js. -->
             <form id="auth-form">
+                <!-- Kolom email untuk identitas akun pengguna. -->
                 <label for="auth-username">Email</label>
                 <input
                     id="auth-username"
@@ -50,6 +59,7 @@
                     required
                 >
 
+                <!-- Kolom kata sandi dengan batas minimum enam karakter. -->
                 <label for="auth-password">Password</label>
                 <input
                     id="auth-password"
@@ -60,8 +70,10 @@
                     required
                 >
 
+                <!-- Area untuk menampilkan status atau pesan autentikasi. -->
                 <p id="auth-message" role="status"></p>
 
+                <!-- Tombol untuk mengirim formulir autentikasi. -->
                 <button type="submit" id="auth-submit" class="save-button">
                     Masuk ke Wordly
                 </button>
@@ -69,16 +81,18 @@
         </div>
     </section>
 
-    <!-- APLIKASI UTAMA -->
+    <!-- Wadah aplikasi yang ditampilkan setelah pengguna berhasil masuk. -->
     <div id="app-page" class="hidden">
 
-        <!-- HEADER -->
+        <!-- Header berisi identitas aplikasi, profil singkat, tema, dan tombol keluar. -->
         <header class="topbar">
+            <!-- Identitas merek Wordly pada bagian atas aplikasi. -->
             <a class="brand" href="#">
                 <span class="brand-icon">w.</span>
                 wordly
             </a>
 
+            <!-- Ringkasan identitas pengguna dan kontrol akun. -->
             <div class="profile">
                 <span class="profile-dot" id="profile-avatar">W</span>
                 <span id="header-username">Pengguna</span>
@@ -100,7 +114,7 @@
             </div>
         </header>
 
-        <!-- MENU NAVIGASI -->
+        <!-- Navigasi untuk berpindah antara halaman belajar, kata saya, referensi, dan profil. -->
         <nav class="main-menu" aria-label="Menu utama">
             <button type="button" class="menu-button active" data-page="learn-page">
                 📚 Belajar
@@ -118,9 +132,10 @@
 
         <main class="app">
 
-            <!-- HALAMAN BELAJAR -->
+            <!-- Halaman utama untuk belajar kosakata dan melihat progres. -->
             <section id="learn-page" class="content-page">
 
+                <!-- Judul sambutan dan pengantar singkat untuk aktivitas belajar. -->
                 <section class="welcome">
                     <p class="eyebrow">ENGLISH, ONE CARD AT A TIME</p>
 
@@ -134,20 +149,23 @@
                     </p>
                 </section>
 
-                <!-- STATISTIK -->
+                <!-- Ringkasan jumlah kata, kata yang diingat, dan persentase progres. -->
                 <section class="summary-grid">
+                    <!-- Menampilkan jumlah seluruh kosakata yang tersedia. -->
                     <article class="summary-card">
                         <span class="summary-icon lavender">▤</span>
                         <span class="summary-label">Total kata</span>
                         <strong id="total-count">24</strong>
                     </article>
 
+                    <!-- Menampilkan jumlah kosakata yang telah ditandai sudah diingat. -->
                     <article class="summary-card">
                         <span class="summary-icon mint">✓</span>
                         <span class="summary-label">Sudah ingat</span>
                         <strong id="known-count">0</strong>
                     </article>
 
+                    <!-- Menampilkan progres belajar dalam bentuk persentase dan bilah progres. -->
                     <article class="summary-card progress-card">
                         <div class="progress-top">
                             <span class="summary-label">Progres belajar</span>
@@ -164,8 +182,9 @@
                     </article>
                 </section>
 
-                <!-- FLASHCARD -->
+                <!-- Area latihan flashcard, termasuk filter kategori dan kontrol belajar. -->
                 <section class="learn-section">
+                    <!-- Judul latihan dan pilihan kategori kosakata yang sedang ditampilkan. -->
                     <div class="section-top">
                         <div>
                             <p class="eyebrow">LATIHAN HARIANMU</p>
@@ -184,11 +203,13 @@
                         </label>
                     </div>
 
+                    <!-- Informasi kategori dan posisi kartu pada urutan belajar. -->
                     <div class="study-meta">
                         <span class="pill" id="category-pill">KATA BENDA</span>
                         <span class="card-number" id="card-counter">01 / 24</span>
                     </div>
 
+                    <!-- Kartu dua sisi: kata bahasa Inggris di depan dan arti serta contoh di belakang. -->
                     <div class="card-stage">
                         <button
                             class="flashcard"
@@ -226,12 +247,14 @@
                         </button>
                     </div>
 
+                    <!-- Pertanyaan untuk menentukan apakah kosakata pada kartu sudah diingat. -->
                     <div class="memory-question">
                         <span></span>
                         APAKAH KAMU SUDAH MENGINGATNYA?
                         <span></span>
                     </div>
 
+                    <!-- Tombol untuk menandai kata perlu diulang atau sudah diingat. -->
                     <div class="memory-actions">
                         <button class="memory-button not-known" id="mark-review" type="button">
                             <span class="memory-symbol">↻</span>
@@ -250,6 +273,7 @@
                         </button>
                     </div>
 
+                    <!-- Tombol navigasi kartu sebelumnya, pengacakan, dan kartu berikutnya. -->
                     <div class="navigation">
                         <button class="nav-button" id="prev-card" type="button">
                             ← Sebelumnya
@@ -265,8 +289,9 @@
                     </div>
                 </section>
 
-                <!-- DAFTAR KOSAKATA -->
+                <!-- Daftar kosakata yang dapat dicari dan ditandai berdasarkan progres hafalan. -->
                 <section class="word-list-section">
+                    <!-- Judul daftar serta jumlah kata yang sedang ditampilkan. -->
                     <div class="section-top">
                         <div>
                             <p class="eyebrow">KEEP IT GOING</p>
@@ -276,6 +301,7 @@
                         <span class="word-count" id="list-count">24 kata</span>
                     </div>
 
+                    <!-- Kolom pencarian untuk menyaring daftar kosakata. -->
                     <label class="search-box">
                         <span>⌕</span>
                         <input
@@ -286,14 +312,16 @@
                         >
                     </label>
 
+                    <!-- Wadah yang diisi daftar kartu kosakata oleh script.js. -->
                     <div class="word-list" id="card-list"></div>
 
+                    <!-- Keterangan arti titik hijau pada daftar kosakata. -->
                     <p class="list-footnote">
                         TITIK HIJAU MENANDAKAN KATA YANG SUDAH KAMU INGAT.
                     </p>
                 </section>
 
-                <!-- TAMBAH KATA -->
+                <!-- Ajakan dan tombol untuk membuka formulir penambahan kosakata. -->
                 <section class="add-section">
                     <div>
                         <span class="add-icon">＋</span>
@@ -309,8 +337,9 @@
                 </section>
             </section>
 
-            <!-- HALAMAN KATA SAYA -->
+            <!-- Halaman untuk melihat, mencari, dan mengelola kosakata milik pengguna. -->
             <section id="mywords-page" class="content-page hidden">
+                <!-- Pengantar halaman kata milik pengguna. -->
                 <section class="welcome">
                     <p class="eyebrow">MY VOCABULARY</p>
                     <h1>Kata <span>punyamu.</span></h1>
@@ -319,6 +348,7 @@
                     </p>
                 </section>
 
+                <!-- Daftar kosakata pribadi beserta pencarian dan tombol tambah kata. -->
                 <section class="word-list-section">
                     <div class="section-top">
                         <h2>Daftar kata saya</h2>
@@ -342,8 +372,9 @@
                 </section>
             </section>
 
-            <!-- HALAMAN REFERENSI -->
+            <!-- Halaman untuk menjelajahi kosakata komunitas dan membagikan kata baru. -->
             <section id="reference-page" class="content-page hidden">
+                <!-- Pengantar halaman referensi komunitas. -->
                 <section class="welcome">
                     <p class="eyebrow">COMMUNITY VOCABULARY</p>
                     <h1>Belajar <span>bersama.</span></h1>
@@ -352,6 +383,7 @@
                     </p>
                 </section>
 
+                <!-- Daftar referensi yang dapat dicari atau dibagikan ke komunitas. -->
                 <section class="word-list-section">
                     <div class="section-top">
                         <h2>Referensi kata</h2>
@@ -382,8 +414,9 @@
                 </section>
             </section>
 
-            <!-- HALAMAN PROFIL -->
+            <!-- Halaman profil yang merangkum progres dan menyediakan pengaturan akun. -->
             <section id="profile-page" class="content-page hidden">
+                <!-- Pengantar halaman profil belajar. -->
                 <section class="welcome">
                     <p class="eyebrow">YOUR LEARNING SPACE</p>
                     <h1>Profil <span>belajar.</span></h1>
@@ -392,6 +425,7 @@
                     </p>
                 </section>
 
+                <!-- Statistik belajar pengguna yang sama ditampilkan pada ringkasan profil. -->
                 <section class="summary-grid">
                     <article class="summary-card">
                         <span class="summary-icon lavender">📚</span>
@@ -412,6 +446,7 @@
                     </article>
                 </section>
 
+                <!-- Informasi akun dan kontrol untuk mengganti tema atau keluar. -->
                 <section class="word-list-section">
                     <h2>Pengaturan</h2>
                     <p id="profile-username">Pengguna</p>
@@ -434,6 +469,7 @@
                 </section>
             </section>
 
+            <!-- Footer sebagai identitas dan penutup konten aplikasi. -->
             <footer>
                 <span class="footer-logo">w.</span>
                 <p>WORDLY · ENGLISH FLASHCARDS</p>
@@ -442,9 +478,10 @@
         </main>
     </div>
 
-    <!-- FORM TAMBAH KOSAKATA -->
+    <!-- Dialog untuk mengisi kosakata baru sebelum disimpan ke aplikasi. -->
     <dialog id="add-card-dialog" class="add-dialog">
         <form id="add-card-form">
+            <!-- Judul dialog, informasi berbagi, dan tombol untuk menutupnya. -->
             <div class="dialog-heading">
                 <div>
                     <p class="eyebrow">NEW VOCABULARY</p>
@@ -459,6 +496,7 @@
                 </button>
             </div>
 
+            <!-- Kolom untuk memasukkan kata bahasa Inggris yang akan dipelajari. -->
             <label for="new-question">Kata bahasa Inggris</label>
             <input
                 id="new-question"
@@ -467,6 +505,7 @@
                 placeholder="Contoh: Butterfly"
             >
 
+            <!-- Kolom untuk memasukkan terjemahan atau arti dalam bahasa Indonesia. -->
             <label for="new-answer">Arti bahasa Indonesia</label>
             <input
                 id="new-answer"
@@ -475,6 +514,7 @@
                 placeholder="Contoh: Kupu-kupu"
             >
 
+            <!-- Pilihan kategori untuk mengelompokkan kosakata baru. -->
             <label for="new-category">Kategori</label>
             <select id="new-category">
                 <option value="Benda">Kata benda</option>
@@ -486,6 +526,7 @@
                 <option value="Nature">Alam</option>
             </select>
 
+            <!-- Kolom emoji opsional sebagai ilustrasi kosakata. -->
             <label for="new-emoji">Emoji</label>
             <input
                 id="new-emoji"
@@ -493,6 +534,7 @@
                 placeholder="Contoh: 🦋"
             >
 
+            <!-- Kolom opsional untuk contoh penggunaan kata dalam kalimat. -->
             <label for="new-example">Contoh kalimat (opsional)</label>
             <input
                 id="new-example"
@@ -500,8 +542,10 @@
                 placeholder="The butterfly is beautiful."
             >
 
+            <!-- Area untuk menampilkan status penyimpanan atau validasi kosakata. -->
             <p id="add-card-message" role="status"></p>
 
+            <!-- Tombol untuk membatalkan atau menyimpan kosakata baru. -->
             <div class="dialog-actions">
                 <button class="cancel-button" type="button" id="cancel-add">
                     Batal
@@ -514,6 +558,7 @@
         </form>
     </dialog>
 
+    <!-- Memuat JavaScript yang mengatur interaksi, navigasi, dan data aplikasi. -->
     <script src="./script.js"></script>
 </body>
 </html>

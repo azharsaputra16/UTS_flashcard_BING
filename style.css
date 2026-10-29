@@ -1,4 +1,5 @@
 
+/* Stylesheet ini mengatur desain, tata letak, animasi, mode gelap, dan tampilan responsif Wordly. */
 /* Mengatur ukuran elemen agar lebih mudah diatur */
 * {
     box-sizing: border-box;
@@ -1044,6 +1045,7 @@ footer small {
     animation: wordly-appear .25s ease;
 }
 
+/* Animasi masuk singkat agar perpindahan halaman terasa lebih halus. */
 @keyframes wordly-appear {
     from {
         opacity: 0;
@@ -1277,7 +1279,7 @@ select:focus-visible {
 
 /* =========================================
    DARK MODE
-   Aktif ketika body memiliki class dark-mode
+   Mengganti warna permukaan dan teks saat body memiliki class dark-mode.
    ========================================= */
 
 body.dark-mode {
